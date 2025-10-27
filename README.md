@@ -25,7 +25,7 @@ Build the container and run it locally.
 
 ```bash
 docker build -t go-web-server .
-docker run -p 8080:8080 go-web-server
+docker run -p 8080:8080 -it --rm go-web-server
 ```
 After container is running, test the `/readfile` endpoint using the following curl command:
 
@@ -34,6 +34,14 @@ curl "http://localhost:8080/readfile?file=hello.txt"
 ```
 
 You should see the content of the `safe-files/hello.txt` in the respone.
+
+> [!WARNING]
+> What if the user adds a path in the filename? An attacker might try using the following `file` attributes:
+>
+> ```
+> curl "http://localhost:8080/readfile?file=../main.go"
+> curl "http://localhost:8080/readfile?file=../../etc/shadow"
+> ```
 
 ### Step 2. Implement CodeQL - CI workflow
 
