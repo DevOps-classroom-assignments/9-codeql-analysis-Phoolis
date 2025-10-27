@@ -53,4 +53,4 @@ jobs:
       - name: Test /readfile endpoint
         run: curl "http://localhost:8080/readfile?file=hello.txt"
       - name: Test /exec endpoint
-        run: curl "http://localhost:8080/readfile?/exec?cmd=ls"
+        run: curl "http://localhost:8080/exec?cmd=ls"
