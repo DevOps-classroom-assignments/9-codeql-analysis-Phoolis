@@ -44,9 +44,9 @@ jobs:
         run: docker build -t go-web-server .
       - name: Run container and wait until server start
         run:  |
-          docker run -d -p 8080:8080 --rm go-web-server
+          docker run -d -p 8080:8080 --rm --name go-server go-web-server
           echo "Waiting for server to start..."
-          until docker logs go-web-server | grep -q "Listening on http"; do
+          until docker logs go-server | grep -q "Listening on http"; do
             sleep 1
           done
           echo "Server started!"
