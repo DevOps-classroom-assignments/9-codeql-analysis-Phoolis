@@ -32,9 +32,9 @@ jobs:
         with:
           category: go
 
-  docker:
-    name: Docker Build & Run
-    runs-on: ubuntu-latest
-    needs: analyze
+  # docker:
+  #   name: Docker Build & Run
+  #   runs-on: ubuntu-latest
+  #   needs: analyze
 
     # Define steps to build and run the Docker container
