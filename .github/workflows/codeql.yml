@@ -50,7 +50,11 @@ jobs:
             sleep 1
           done
           echo "Server started!"
-      - name: Test /readfile endpoint
-        run: curl "http://localhost:8080/readfile?file=hello.txt"
+      - name: Test /readfile endpoint with allowed file
+        run: curl "http://localhost:8080/readfile?file=hello.txt" --fail-with-body
+      - name: Test /readfile endpoint with disallowed file
+        run: | 
+          echo "This curl should fail..."
+          ! curl "http://localhost:8080/readfile?file=../main.go" --fail-with-body
       - name: Test /exec endpoint
-        run: curl "http://localhost:8080/exec?cmd=ls"
+        run: curl "http://localhost:8080/exec?cmd=ls" --fail-with-body
