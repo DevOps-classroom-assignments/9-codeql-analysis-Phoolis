@@ -38,6 +38,8 @@ jobs:
     needs: analyze
     # Define steps to build and run the Docker container
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
       - name: Build docker container
         run: docker build -t go-web-server .
       - name: Run container
