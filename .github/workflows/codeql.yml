@@ -42,8 +42,14 @@ jobs:
         uses: actions/checkout@v5
       - name: Build docker container
         run: docker build -t go-web-server .
-      - name: Run container
-        run: docker run -p 8080:8080 --rm go-web-server
+      - name: Run container and wait until server start
+        run:  |
+          docker run -d -p 8080:8080 --rm go-web-server
+          echo "Waiting for server to start..."
+          until docker logs go-web-server | grep -q "Listening on http"; do
+            sleep 1
+          done
+          echo "Server started!"
       - name: Test /readfile endpoint
         run: curl "http://localhost:8080/readfile?file=hello.txt"
       - name: Test /exec endpoint
